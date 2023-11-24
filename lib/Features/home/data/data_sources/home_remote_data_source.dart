@@ -1,5 +1,7 @@
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
+import 'package:bookly_app/constants.dart';
 import 'package:bookly_app/core/utils/api_services.dart';
+import '../../../../core/utils/functions/save_box.dart';
 import '../../domain/entities/book_entity.dart';
 
 abstract class HomeRemoteDataSource {
@@ -11,23 +13,25 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   late ApiServise apiServise;
   @override
   Future<List<BookEntity>> fetchFeaturedBooks() async {
-    var data = await apiServise.get(endpoint: 'volumes?Filtering=free-ebooks&q=programming');
+    var data = await apiServise.get(
+        endpoint: 'volumes?Filtering=free-ebooks&q=programming');
     List<BookEntity> books = getBooksList(data);
+
+    saveBooksData(books, kFeaturedBox);
     return books;
   }
 
-  
   @override
-  Future<List<BookEntity>> fetchNewestBooks() async{
-    var data = await apiServise.get(endpoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=programming');
+  Future<List<BookEntity>> fetchNewestBooks() async {
+    var data = await apiServise.get(
+        endpoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=programming');
     List<BookEntity> books = getBooksList(data);
     return books;
   }
-
 
   List<BookEntity> getBooksList(Map<String, dynamic> data) {
     List<BookEntity> books = [];
-    
+
     for (var bookMap in data['items']) {
       books.add(BookModel.fromJson(bookMap));
     }
