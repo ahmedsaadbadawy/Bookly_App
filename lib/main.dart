@@ -1,11 +1,17 @@
+import 'package:bookly_app/Features/home/domain/entities/book_entity.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 
 import 'constants.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
+
+  Hive.registerAdapter(BookEntityAdapter());
+
+  await Hive.openBox(kFeaturedBox);
 }
 
 class MyApp extends StatelessWidget {
