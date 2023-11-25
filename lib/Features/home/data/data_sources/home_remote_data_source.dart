@@ -10,7 +10,9 @@ abstract class HomeRemoteDataSource {
 }
 
 class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
-  late ApiServise apiServise;
+  final ApiServise apiServise;
+
+  HomeRemoteDataSourceImpl(this.apiServise);
   @override
   Future<List<BookEntity>> fetchFeaturedBooks() async {
     var data = await apiServise.get(
@@ -26,6 +28,8 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
     var data = await apiServise.get(
         endpoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=programming');
     List<BookEntity> books = getBooksList(data);
+
+    saveBooksData(books, kNewestdBox);
     return books;
   }
 
