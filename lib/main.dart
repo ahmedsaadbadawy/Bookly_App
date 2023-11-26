@@ -37,14 +37,14 @@ class MyApp extends StatelessWidget {
             FetchFeaturedBooksUseCase(
               getIt.get<HomeRepoImpl>(),
             ),
-          ),
+          )..fechFeaturedBooks(),
         ),
         BlocProvider(
           create: (context) => NewestBooksCubit(
             FetchNewestBooksUseCase(
               getIt.get<HomeRepoImpl>(),
             ),
-          ),
+          )..fetchNewestBooks(),
         ),
       ],
       child: MaterialApp.router(
