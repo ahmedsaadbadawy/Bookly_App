@@ -13,10 +13,10 @@ class FeaturedBooksCubit extends Cubit<FeaturedBooksState> {
   Future<void> fechFeaturedBooks() async {
     emit(FeaturedBooksLoading());
     var result = await featuredBooksUseCase.call();
-    return result.fold(
+    result.fold(
       (failure) => emit(FeaturedBooksFailure(failure.message)),
       (books) => emit(FeaturedBooksSuccess(books)),
     );
   }
-  
+
 }
