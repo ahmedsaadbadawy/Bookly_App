@@ -12,6 +12,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'Features/home/domain/use_cases/fetch_newest_books_use_case.dart';
 import 'constants.dart';
 import 'core/utils/functions/setup_service_locator.dart';
+import 'core/utils/simple_bloc_observer.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -19,6 +20,7 @@ void main() async {
   await Hive.openBox<BookEntity>(kFeaturedBox);
   await Hive.openBox<BookEntity>(kNewestdBox);
   setupServiceLocator();
+  Bloc.observer = SimpleBlocObserver();
   runApp(const MyApp());
 }
 
