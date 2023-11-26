@@ -12,7 +12,7 @@ class FetchFeaturedBooksUseCase extends UseCase<List<BookEntity>, NoParam> {
 
   @override
   Future<Either<Failure, List<BookEntity>>> call([NoParam? param]) async {
-    // TODO: implement call
+    
     return await homeRepo.fetchFeaturedBooks();
   }
 }
