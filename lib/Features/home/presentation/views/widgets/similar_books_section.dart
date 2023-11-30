@@ -1,7 +1,12 @@
+import 'package:bookly_app/Features/home/domain/use_cases/fetch_newest_books_use_case.dart';
+import 'package:bookly_app/Features/home/presentation/manager/similar_books_cubit/similar_books_cubit.dart';
+import 'package:bookly_app/core/utils/functions/setup_service_locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/styles.dart';
-import 'similar_books_list_view.dart';
+import '../../../data/repos/home_repo_impl.dart';
+import 'similar_books_list_view_bloc_builder.dart';
 
 class SimilarBooksSection extends StatelessWidget {
   const SimilarBooksSection({super.key});
@@ -18,7 +23,14 @@ class SimilarBooksSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        const SimilarBooksListview(),
+        BlocProvider(
+          create: (context) => SimilarBooksCubit(
+            FetchNewestBooksUseCase(
+              getIt.get<HomeRepoImpl>(),
+            ),
+          )..fetchSimilarBooks(),
+          child: const SimilarBooksListViewBlocBuilder(),
+        ),
       ],
     );
   }
