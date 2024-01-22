@@ -7,6 +7,8 @@ import '../../domain/entities/book_entity.dart';
 abstract class HomeRemoteDataSource {
   Future<List<BookEntity>> fetchFeaturedBooks({int pageNumber =0});
   Future<List<BookEntity>> fetchNewestBooks({int pageNumber =0});
+  Future<List<BookModel>> fetchSimilarBooks(
+      {required String category});
 }
 
 class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
@@ -33,6 +35,18 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
     return books;
   }
 
+   @override
+  Future<List<BookModel>> fetchSimilarBooks({required String category}) async{
+    var data = await apiServise.get(
+        endpoint: 'volumes?Filtering=free-ebooks&Sorting=relevance&q=programming');
+    List<BookModel> books = [];
+
+    for (var bookMap in data['items']) {
+      books.add(BookModel.fromJson(bookMap));
+    }
+    return books;
+  }
+
   List<BookEntity> getBooksList(Map<String, dynamic> data) {
     List<BookEntity> books = [];
 
@@ -41,4 +55,6 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
     }
     return books;
   }
+  
+ 
 }
