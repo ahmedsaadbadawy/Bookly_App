@@ -15,3 +15,11 @@ SnackBar buildErrorSnackBar(String errMessage) {
       ),
     );
   }
+
+  void customSnackBar(context, String text) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(text),
+    ),
+  );
+}

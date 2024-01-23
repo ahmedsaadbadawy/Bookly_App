@@ -1,7 +1,7 @@
-
 import 'package:hive/hive.dart';
 
 part 'book_entity.g.dart';
+
 @HiveType(typeId: 0)
 class BookEntity {
   @HiveField(0)
@@ -16,10 +16,8 @@ class BookEntity {
   final num? price;
   @HiveField(5)
   final num? rating;
-  // @HiveField(6)
-  // final String? category;
 
-  BookEntity( {
+  BookEntity({
     required this.image,
     required this.title,
     required this.authorName,
@@ -28,4 +26,3 @@ class BookEntity {
     required this.bookId,
   });
 }
-

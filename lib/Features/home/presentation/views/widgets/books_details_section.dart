@@ -22,7 +22,11 @@ class BookDetailsSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 43),
-        Text(book.title, style: Styles.textStyle30),
+        Text(
+          book.title,
+          style: Styles.textStyle30,
+          textAlign: TextAlign.center,
+        ),
         const SizedBox(height: 6),
         Opacity(
           opacity: 0.7,
@@ -38,7 +42,7 @@ class BookDetailsSection extends StatelessWidget {
           rating: book.rating ?? 0,
         ),
         const SizedBox(height: 37),
-        BooksAction(price: book.price ?? 0.0),
+        BooksAction(book: book),
       ],
     );
   }
