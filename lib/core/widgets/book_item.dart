@@ -4,10 +4,10 @@ import 'package:bookly_app/core/utils/styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'book_rating.dart';
+import '../../Features/home/presentation/views/widgets/book_rating.dart';
 
-class BestSellerItem extends StatelessWidget {
-  const BestSellerItem({super.key, required this.book});
+class BookItem extends StatelessWidget {
+  const BookItem({super.key, required this.book});
 
   final BookEntity book;
   @override

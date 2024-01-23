@@ -1,47 +1,45 @@
+import 'package:bookly_app/Features/search/presentaion/manager/search_books_cubit/search_books_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/utils/styles.dart';
 import 'custom_search_text_field.dart';
+import 'search_books_list_view_bloc_consumer.dart';
 
 class SearchViewBody extends StatelessWidget {
   const SearchViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomSearchTextField(),
-          SizedBox(height: 16),
-          Text(
-            'Search Result',
-            style: Styles.textStyle18,
+    String? title = ' ';
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 16),
+                CustomSearchTextField(
+                  onChanged: (data) {
+                    title = data;
+                    BlocProvider.of<SearchBooksCubit>(context)
+                        .fechSearchBooks(title: title!);
+                  },
+                  onPressed: () {
+                    BlocProvider.of<SearchBooksCubit>(context)
+                        .fechSearchBooks(title: title!);
+                  },
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
-          SizedBox(height: 16),
-          Expanded(child: SearchResultListView()),
-        ],
-      ),
-    );
-  }
-}
-
-class SearchResultListView extends StatelessWidget {
-  const SearchResultListView({super.key});
-  
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      padding: EdgeInsets.zero,
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return const Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-           //child: BestSellerItem(),
-        );
-      },
+        ),
+        const SliverToBoxAdapter(
+          child: SearchBooksListViewBlocConsumer(),
+        )
+      ],
     );
   }
 }

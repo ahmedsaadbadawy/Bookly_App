@@ -11,7 +11,8 @@ class SearchRepoImpl implements SearchRepo {
 
   SearchRepoImpl(this.apiService);
   @override
-  Future<Either<Failure, List<BookEntity>>> fetchSearchBooks(String title) async {
+  Future<Either<Failure, List<BookEntity>>> fetchSearchBooks(
+      String title) async {
     try {
       var data = await apiService.get(
           endpoint: 'volumes?Sorting=newest &q=intitle:$title');
